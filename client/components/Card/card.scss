@@ -36,8 +36,22 @@
       }
 
       .favorite {
-        
+        box-sizing: border-box;
+        min-width: 120px;
+        background: rgb(66, 141, 240);
+        line-height: 20px;
+        font-size: 16px;
+        padding: 10px 12px 10px 12px;
+        border-radius: 10px;
+        border: 2px solid transparent;
       }
+
    }
   }
+}
+
+#star {
+  position: absolute;
+  top: 10%;
+  left: 87%;
 }

@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import 'bootstrap-4-grid'
 
 import './card.scss'
 
 const Card = () => {
-  return(
+  const [Startoggle, setStarToggle] = useState(false)
+  const addFavorite = () => {
+    setStarToggle(!Startoggle)
+  }
+  return (
     <div className="card mb-3">
       <div className="row">
         <div className="col-md-4">
@@ -17,11 +21,12 @@ const Card = () => {
             <p className="card-rating"><span>Rating:</span> 500 points</p>
             <div className="btn-panel">
               <button type="button" className="view-more">View More</button>
-              <button type="button" className="favorite">star</button>
+              <button type="button" className="favorite" onClick={addFavorite}>star</button>
             </div>
           </div>
         </div>
       </div>
+      {Startoggle ? <div className="star" id="star">STAR</div> : <div className="star" id="star">123</div>}
     </div>
   )
 }

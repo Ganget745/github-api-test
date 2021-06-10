@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { history } from '../redux'
+import axios from 'axios'
 
 import Card from './Card/card'
 
 import 'bootstrap-4-grid'
-
 import './mainpage.scss'
 
 const MainPage = () => {
@@ -12,10 +11,15 @@ const MainPage = () => {
   const onChange = (e) => {
     setValue(e.target.value)
   }
-  const getHistory = () => {
-    history.push(`/${value}`)
-  }
 
+  const [userRepository, setUserRepository] = useState([])
+
+  const SearchFunction = () => {
+    axios.get(`https://api.github.com/users/${value}/repos`).then((it) => {
+      setUserRepository(it.data)
+    })
+  }
+  console.log(userRepository)
   return (
     <div className="search-form">
       <div className="container">
@@ -30,11 +34,13 @@ const MainPage = () => {
                 <input type="text" value={value} onChange={onChange} id="input-field" />
               </div>
             </div>
-            <button className="search-button" type="submit" id="search-button" onClick={getHistory}>
+            <button className="search-button" type="button" id="search-button" onClick={SearchFunction} >
               Search
             </button>
             <div className="col-12">
-                <Card />
+                <Card
+                items={userRepository}
+                />
             </div>
           </form>
 
