@@ -11,13 +11,19 @@ const MainPage = () => {
   const onChange = (e) => {
     setValue(e.target.value)
   }
+  const [errState, setErr] = useState(false)
 
   const [userRepository, setUserRepository] = useState([])
 
-  const SearchFunction = () => {
-    axios.get(`https://api.github.com/users/${value}/repos`).then((it) => {
-      setUserRepository(it.data)
-    })
+  async function SearchFunction() {
+    try {
+      const result = await axios.get(`https://api.github.com/users/${value}/repos`)
+      setUserRepository(result.data)
+      setErr(false)
+    } catch (err) {
+      setErr(!errState)
+      console.log('ERROR: Not Found', err)
+    }
   }
   console.log(userRepository)
   return (
@@ -38,9 +44,7 @@ const MainPage = () => {
               Search
             </button>
             <div className="col-12">
-                <Card
-                items={userRepository}
-                />
+              {errState ? <div>Not Found</div> : <Card items={userRepository}/>}
             </div>
           </form>
 
@@ -52,3 +56,6 @@ const MainPage = () => {
 
 
 export default MainPage
+
+
+// .catch(err => console.log(err, 'ERROR'))
