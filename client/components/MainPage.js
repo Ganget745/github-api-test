@@ -1,31 +1,27 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Card from './Card/card'
+
+import { getReposList } from '../redux/reducers/repos'
 
 import 'bootstrap-4-grid'
 import './mainpage.scss'
 
 const MainPage = () => {
+
+  const reposList = useSelector((store) => store.repos.reposList)
+  const dispatch = useDispatch()
+
   const [value, setValue] = useState('')
   const onChange = (e) => {
     setValue(e.target.value)
   }
-  const [errState, setErr] = useState(false)
 
-  const [userRepository, setUserRepository] = useState([])
-
-  async function SearchFunction() {
-    try {
-      const result = await axios.get(`https://api.github.com/users/${value}/repos`)
-      setUserRepository(result.data)
-      setErr(false)
-    } catch (err) {
-      setErr(!errState)
-      console.log('ERROR: Not Found', err)
-    }
+  const searchFunc = () => {
+      dispatch(getReposList(value))
   }
-  console.log(userRepository)
+
   return (
     <div className="search-form">
       <div className="container">
@@ -40,11 +36,17 @@ const MainPage = () => {
                 <input type="text" value={value} onChange={onChange} id="input-field" />
               </div>
             </div>
-            <button className="search-button" type="button" id="search-button" onClick={SearchFunction} >
+            <button className="search-button" type="button" id="search-button" onClick={searchFunc} >
               Search
             </button>
             <div className="col-12">
-              {errState ? <div>Not Found</div> : <Card items={userRepository}/>}
+              {reposList.map((item) => {
+                return (
+                  <div key={item.id}>
+                    <Card data={item} />
+                  </div>
+                )
+              })}
             </div>
           </form>
 
@@ -58,4 +60,16 @@ const MainPage = () => {
 export default MainPage
 
 
-// .catch(err => console.log(err, 'ERROR'))
+// const [errState, setErr] = useState(false)
+// const [userRepository, setUserRepository] = useState([])
+
+// async function SearchFunction() {
+//   try {
+//     const result = await axios.get(`https://api.github.com/users/${value}/repos`)
+//     setUserRepository(result.data)
+//     setErr(false)
+//   } catch (err) {
+//     setErr(!errState)
+//     console.log('ERROR: Not Found', err)
+//   }
+// }
