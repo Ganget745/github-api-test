@@ -9,6 +9,7 @@ import './card.scss'
 const Card = (props) => {
   const { data } = props
   const dispatch = useDispatch()
+  const localData = JSON.parse(localStorage.getItem('favorite-list'))
 
   const [Startoggle, setStarToggle] = useState(false)
 
@@ -17,6 +18,7 @@ const Card = (props) => {
     setStarToggle(!Startoggle)
   }
 
+  console.log(localData.favorite.favoriteList)
   return (
     <div className="card mb-3">
       <div className="row">

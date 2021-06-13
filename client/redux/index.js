@@ -7,6 +7,7 @@ import SockJS from 'sockjs-client'
 import rootReducer from './reducers'
 import createHistory from './history'
 import socketActions from './sockets'
+// import favorite from './reducers/favorite'
 
 export const history = createHistory()
 
@@ -21,6 +22,9 @@ const composeFunc = process.env.NODE_ENV === 'development' ? composeWithDevTools
 const composedEnhancers = composeFunc(applyMiddleware(...middleware), ...enhancers)
 
 const store = createStore(rootReducer(history), initialState, composedEnhancers)
+store.subscribe(() => {
+  localStorage['favorite-list'] = JSON.stringify(store.getState())
+})
 let socket
 
 if (typeof ENABLE_SOCKETS !== 'undefined' && ENABLE_SOCKETS) {
