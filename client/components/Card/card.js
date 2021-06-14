@@ -27,7 +27,7 @@ const Card = (props) => {
         </div>
         <div className="col-md-8">
           <div className="card-body">
-            <h5 className="card-title"><span>Name:</span> {data.name}</h5>
+            <h5 className="card-title"><span>Name:</span> {data.name} </h5>
             <p className="card-rating"><span>Watchers:</span> {data.watchers}</p>
             <div className="btn-panel">
 
