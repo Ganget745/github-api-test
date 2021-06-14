@@ -22,6 +22,7 @@ const MainPage = () => {
       dispatch(getReposList(value))
   }
 
+
   return (
     <div className="search-form">
       <div className="container">
@@ -58,18 +59,3 @@ const MainPage = () => {
 
 
 export default MainPage
-
-
-// const [errState, setErr] = useState(false)
-// const [userRepository, setUserRepository] = useState([])
-
-// async function SearchFunction() {
-//   try {
-//     const result = await axios.get(`https://api.github.com/users/${value}/repos`)
-//     setUserRepository(result.data)
-//     setErr(false)
-//   } catch (err) {
-//     setErr(!errState)
-//     console.log('ERROR: Not Found', err)
-//   }
-// }

@@ -8,6 +8,7 @@ import { Switch, Route, Redirect, StaticRouter } from 'react-router-dom'
 import store, { history } from '../redux'
 
 import MainPage from '../components/MainPage'
+import ChooseRepo from '../components/ChooseRepo/chooserepo'
 import NotFound from '../components/404'
 
 import Startup from './startup'
@@ -72,6 +73,7 @@ const RootComponent = (props) => {
         <Startup>
           <Switch>
             <Route exact path="/" component={() => <MainPage />} />
+            <Route exact path="/:userName/:repositoryName" component={() => <ChooseRepo />} />
             <Route component={() => <NotFound />} />
           </Switch>
         </Startup>
