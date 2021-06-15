@@ -10,6 +10,7 @@ import 'bootstrap-4-grid'
 import './mainpage.scss'
 
 const MainPage = () => {
+
   const currentPage = useSelector((store) => store.repos.currentPage)
   const perPage = useSelector((store) => store.repos.perPage)
   const reposList = useSelector((store) => store.repos.reposList)
@@ -45,7 +46,8 @@ const MainPage = () => {
                 <div className="form-header">
                   <p>Github Nickname:</p>
                 </div>
-                <input type="text" value={value} onChange={onChange} id="input-field" />
+                <input type="text" name="name" value={value} onChange={onChange} id="input-field" />
+                {value.length === 0 ? <p className="p-valid">Mininum 1 character</p> : null}
               </div>
             </div>
             <button className="search-button" type="button" id="search-button" onClick={searchFunc} >

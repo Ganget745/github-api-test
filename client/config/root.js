@@ -7,6 +7,7 @@ import { Switch, Route, Redirect, StaticRouter } from 'react-router-dom'
 
 import store, { history } from '../redux'
 
+import SplashScreen from '../components/SplashScreen/splashscreen'
 import MainPage from '../components/MainPage'
 import ChooseRepo from '../components/ChooseRepo/chooserepo'
 import NotFound from '../components/404'
@@ -72,7 +73,8 @@ const RootComponent = (props) => {
       <RouterSelector history={history} location={props.location} context={props.context}>
         <Startup>
           <Switch>
-            <Route exact path="/" component={() => <MainPage />} />
+            <Route exact path="/" component={() => <SplashScreen />} />
+            <Route exact path="/main" component={() => <MainPage />} />
             <Route exact path="/:userName/:repositoryName" component={() => <ChooseRepo />} />
             <Route component={() => <NotFound />} />
           </Switch>
