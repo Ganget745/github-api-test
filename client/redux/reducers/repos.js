@@ -2,12 +2,14 @@ import axios from 'axios'
 
 const GET_REPOS_LIST = 'GET_REPOS_LIST'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_SORT = 'SET_SORT'
 
 const initialState = {
   reposList: [],
   currentPage: 1,
   perPage: 3,
-  totalCount: 4
+  totalCount: 4,
+  sortType: ''
 }
 
 export default (state = initialState, action) => {
@@ -23,6 +25,35 @@ export default (state = initialState, action) => {
       return {
         ...state,
         currentPage: action.data
+      }
+    }
+    case SET_SORT: {
+      const sortedList = [...state.reposList].sort((a, b) => {
+        if (action.name !== 'abc') {
+          if (a.price < b.price) {
+            return -1
+          }
+          if (a.price > b.price) {
+            return 1
+          }
+        }
+        if (a.title < b.title) {
+          return -1
+        }
+        if (a.title > b.title) {
+          return 1
+        }
+        return 0
+      })
+      if (action.sortType === false) {
+        return {
+          ...state,
+          reposList: sortedList.reverse()
+        }
+      }
+      return {
+        ...state,
+        reposList: sortedList
       }
     }
     default:
@@ -42,11 +73,10 @@ export  function getReposList(value, currentPage, perPage) {
   }
 }
 
-// export function getTotalCount(value) {
-//   return {
-//     axios(`https://api.github.com/users/${value}/repos`).then(({}))
-//   }
-// }
-
-
-// https://api.github.com/users/${value}/repos?page=1&per_page=2
+export function setSort(name, sortType) {
+  return {
+    type: SET_SORT,
+    sortType,
+    name
+  }
+}

@@ -1,0 +1,12 @@
+.sort {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background: rgb(236, 78, 236);
+  line-height: 20px;
+  font-size: 14px;
+  padding: 5px 10px;
+}
+.sort:hover {
+  transform: scale(1.1);
+  transition: ease 0.5s;
+}

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 
 import Card from './Card/card'
+import Sort from './Sort/sort'
 
 import { getReposList, setCurrentPage } from '../redux/reducers/repos'
 
@@ -53,6 +54,7 @@ const MainPage = () => {
             <button className="search-button" type="button" id="search-button" onClick={searchFunc} >
               Search
             </button>
+            <Sort />
             <div className="col-12">
               {reposList.map((item) => {
                 return (
